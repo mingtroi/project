@@ -9,7 +9,6 @@ public class Turret : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform turretRotationPoint;
     [SerializeField] private LayerMask enemyMask;
-    [SerializeField] private Animator animator;
 
 
     [Header("Attribute")]
@@ -40,32 +39,10 @@ public class Turret : MonoBehaviour
         }
         
         RotationTowardTarget();
-        UpdateAnimation();
 
         if (!CheckTargetIsInRange())
         {
             target = null;
-        }
-    }
-    private void UpdateAnimation()
-    {
-        float angle = turretRotationPoint.eulerAngles.z;
-
-        if (angle >= 45f && angle < 135f)
-        {
-            animator.Play("U_Idle");
-        }
-        else if (angle >= 135f && angle < 225f)
-        {
-            animator.Play("L_Idle"); 
-        }
-        else if (angle >= 225f && angle < 315f)
-        {
-            animator.Play("D_Idle");
-        }
-        else
-        {
-            animator.Play("R_Idle");
         }
     }
 
