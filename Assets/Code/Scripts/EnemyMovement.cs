@@ -4,44 +4,45 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
-    [Header("Atributes")] 
-    // Start is called before the first frame update
+
+    [Header("Attributes")]
     [SerializeField] private float moveSpeed = 2f;
 
     private Transform target;
     private int pathIndex = 0;
+    private Transform[] waypoints; // Quái s? có danh sách ???ng ?i riêng
 
-    void Start()
+    public void SetPath(Transform[] selectedPath)
     {
-        target = LevelManager.main.path[pathIndex];
+        waypoints = selectedPath;
+        pathIndex = 0;
+        target = waypoints[pathIndex];
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (target == null || waypoints == null) return;
+
         if (Vector2.Distance(target.position, transform.position) <= 0.1f)
         {
-            pathIndex = pathIndex + 1;
-            if (pathIndex == LevelManager.main.path.Length)
+            pathIndex++;
+            if (pathIndex == waypoints.Length)
             {
                 EnemySpawner.onEnemyDestroy.Invoke();
                 Destroy(gameObject);
                 return;
             }
-            else
-            {
-                target = LevelManager.main.path[pathIndex];
-
-            }
+            target = waypoints[pathIndex];
         }
     }
+
     private void FixedUpdate()
     {
-        Vector2 direction = (target.position - transform.position).normalized;
+        if (target == null) return;
 
+        Vector2 direction = (target.position - transform.position).normalized;
         rb.velocity = direction * moveSpeed;
     }
 }
