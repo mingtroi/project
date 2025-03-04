@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 public class EnemySpawner : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject[] enemyPrefabs;
+    [SerializeField] private Transform startPoint1; // ?i?m spawn 1
+    [SerializeField] private Transform startPoint2; // ?i?m spawn 2 (ch? dùng cho màn có 2 ???ng)
+    [SerializeField] private bool useMultiplePaths = false; // N?u true, spawn t? 2 ???ng
 
-
-
-    [Header("Attribute")]
+    [Header("Attributes")]
     [SerializeField] private int baseEnemies = 8;
     [SerializeField] private float enemiesPerSecond = 0.5f;
     [SerializeField] private float timeBetweenWaves = 5f;
@@ -30,31 +30,32 @@ public class EnemySpawner : MonoBehaviour
     {
         onEnemyDestroy.AddListener(EnemyDestroy);
     }
-    // Start is called before the first frame update
+
     private void Start()
     {
         StartCoroutine(StartWave());
     }
+
     void Update()
     {
-        if (!isSpawning)
-        {
-            return;
-        }
-        timeSinceLastSpawn += Time.deltaTime; 
+        if (!isSpawning) return;
 
-        if(timeSinceLastSpawn >= (1f / enemiesPerSecond)  && enemiesLeftToSpawned > 0)
+        timeSinceLastSpawn += Time.deltaTime;
+
+        if (timeSinceLastSpawn >= (1f / enemiesPerSecond) && enemiesLeftToSpawned > 0)
         {
             SpawnEnemy();
             enemiesLeftToSpawned--;
             enemiesAlive++;
             timeSinceLastSpawn = 0f;
         }
-        if(enemiesAlive == 0 && enemiesLeftToSpawned == 0)
+
+        if (enemiesAlive == 0 && enemiesLeftToSpawned == 0)
         {
             EndWave();
         }
     }
+
     private void EndWave()
     {
         isSpawning = false;
@@ -62,25 +63,48 @@ public class EnemySpawner : MonoBehaviour
         currentWave++;
         StartCoroutine(StartWave());
     }
+
     private void SpawnEnemy()
     {
         GameObject prefabToSpawn = enemyPrefabs[0];
-        Instantiate(prefabToSpawn, LevelManager.main.startPoint.position, Quaternion.identity);
+        Transform spawnPoint;
+        Transform[] waypoints;
+
+        if (useMultiplePaths) // N?u dùng 2 ???ng
+        {
+            bool spawnAtFirstPath = Random.value > 0.5f;
+            spawnPoint = spawnAtFirstPath ? startPoint1 : startPoint2;
+            waypoints = spawnAtFirstPath ? Waypoints.path1 : Waypoints.path2;
+        }
+        else // Ch? ?? 1 ???ng (màn c?a leader)
+        {
+            spawnPoint = startPoint1; // Luôn spawn t?i ?i?m 1
+            waypoints = Waypoints.path1; // ?i theo ???ng Path1 m?c ??nh
+        }
+
+        GameObject enemyGO = Instantiate(prefabToSpawn, spawnPoint.position, Quaternion.identity);
+        EnemyMovement enemyMovement = enemyGO.GetComponent<EnemyMovement>();
+
+        if (enemyMovement != null)
+        {
+            enemyMovement.SetPath(waypoints);
+        }
     }
+
     private void EnemyDestroy()
     {
         enemiesAlive--;
     }
+
     private IEnumerator StartWave()
     {
         yield return new WaitForSeconds(timeBetweenWaves);
         isSpawning = true;
         enemiesLeftToSpawned = EnemiesPerWave();
     }
+
     private int EnemiesPerWave()
     {
         return Mathf.RoundToInt(baseEnemies * Mathf.Pow(currentWave, difficultyScalingFactor));
     }
-
-    // Update is called once per frame
 }
