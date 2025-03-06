@@ -7373,6 +7373,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 1015208901}
   startPoint: {fileID: 1549119741}
+  startPoint1: {fileID: 0}
+  currency: 0
 --- !u!4 &1271866550
 Transform:
   m_ObjectHideFlags: 0

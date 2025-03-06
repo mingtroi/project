@@ -66,30 +66,26 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        GameObject prefabToSpawn = enemyPrefabs[0];
-        Transform spawnPoint;
-        Transform[] waypoints;
+        GameObject prefabToSpawn = enemyPrefabs[0]; 
+        Transform spawnPoint = startPoint1; 
+        Transform[] waypoints = Waypoints.path1; 
 
-        if (useMultiplePaths) // N?u dùng 2 ???ng
+        if (useMultiplePaths && startPoint2 != null)
         {
             bool spawnAtFirstPath = Random.value > 0.5f;
             spawnPoint = spawnAtFirstPath ? startPoint1 : startPoint2;
             waypoints = spawnAtFirstPath ? Waypoints.path1 : Waypoints.path2;
         }
-        else // Ch? ?? 1 ???ng (màn c?a leader)
-        {
-            spawnPoint = startPoint1; // Luôn spawn t?i ?i?m 1
-            waypoints = Waypoints.path1; // ?i theo ???ng Path1 m?c ??nh
-        }
 
         GameObject enemyGO = Instantiate(prefabToSpawn, spawnPoint.position, Quaternion.identity);
-        EnemyMovement enemyMovement = enemyGO.GetComponent<EnemyMovement>();
 
+        EnemyMovement enemyMovement = enemyGO.GetComponent<EnemyMovement>();
         if (enemyMovement != null)
         {
             enemyMovement.SetPath(waypoints);
         }
     }
+
 
     private void EnemyDestroy()
     {
