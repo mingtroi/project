@@ -12,7 +12,7 @@ public class EnemyMovement : MonoBehaviour
 
     private Transform target;
     private int pathIndex = 0;
-    private Transform[] waypoints; // Quái s? có danh sách ???ng ?i riêng
+    private Transform[] waypoints;
 
     public void SetPath(Transform[] selectedPath)
     {
