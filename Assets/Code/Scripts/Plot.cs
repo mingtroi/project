@@ -11,20 +11,25 @@ public class Plot : MonoBehaviour
 
     private GameObject tower;
     private Color startColor;
+    private int defaultOrder;
+    private int hoverOrder = 6; 
 
     private void Start()
     {
         startColor = sr.color;
+        defaultOrder = sr.sortingOrder; 
     }
 
     private void OnMouseEnter()
     {
         sr.color = hoverColor;
+        sr.sortingOrder = hoverOrder; 
     }
 
     private void OnMouseExit()
     {
         sr.color = startColor;
+        sr.sortingOrder = defaultOrder; 
     }
     private void OnMouseDown()
     {
@@ -42,11 +47,5 @@ public class Plot : MonoBehaviour
 
         tower = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
