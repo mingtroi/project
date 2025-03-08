@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class LevelManager : MonoBehaviour
     public int playerHealth = 10;
 
     [SerializeField] private TextMeshProUGUI playerHealthText;
+    [SerializeField] private GameObject gameOverUI;
+    private Menu menu;
+    public bool isGameOver = false;
+
     private void Awake()
     {
         main = this;
@@ -21,14 +26,36 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         currency = 260;
-        FindObjectOfType<Menu>().UpdateCurrencyUI();
-        UpdateHealthUI(); 
+        menu = FindObjectOfType<Menu>();
+
+        if (menu != null)
+        {
+            menu.UpdateCurrencyUI();
+        }
+        else
+        {
+            Debug.LogWarning("Menu not found in the scene!");
+        }
+
+        UpdateHealthUI();
+
+        if (gameOverUI != null)
+        {
+            gameOverUI.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("GameOver UI not assigned in the Inspector!");
+        }
     }
 
     public void IncreaseCurrency(int amount)
     {
         currency += amount;
-        FindObjectOfType<Menu>().UpdateCurrencyUI();
+        if (menu != null)
+        {
+            menu.UpdateCurrencyUI();
+        }
     }
 
     public bool SpendCurrency(int amount)
@@ -36,7 +63,10 @@ public class LevelManager : MonoBehaviour
         if (amount <= currency)
         {
             currency -= amount;
-            FindObjectOfType<Menu>().UpdateCurrencyUI();
+            if (menu != null)
+            {
+                menu.UpdateCurrencyUI();
+            }
             return true;
         }
         return false;
@@ -49,9 +79,31 @@ public class LevelManager : MonoBehaviour
 
         if (playerHealth <= 0)
         {
-            Debug.Log("Game Over!");
-           
+            GameOver();
         }
+    }
+
+    public void GameOver()
+    {
+        isGameOver = true;
+        Time.timeScale = 0;
+
+        if (gameOverUI != null)
+        {
+            gameOverUI.SetActive(true);
+        }
+    }
+
+    public void RestartGame()
+    {
+        isGameOver = false;
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public bool IsGameOver()
+    {
+        return isGameOver;
     }
 
     private void UpdateHealthUI()
@@ -59,6 +111,10 @@ public class LevelManager : MonoBehaviour
         if (playerHealthText != null)
         {
             playerHealthText.text = "HP: " + playerHealth.ToString();
+        }
+        else
+        {
+            Debug.LogError("playerHealthText is not assigned!");
         }
     }
 }

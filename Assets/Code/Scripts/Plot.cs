@@ -32,9 +32,10 @@ public class Plot : MonoBehaviour
 
     private void OnMouseDown()
     {
-        // Add debug to check if UI hovering state is preventing actions
-        Debug.Log("Plot clicked. IsHoveringUI: " + UIManager.main.IsHoveringUI());
-
+        if (LevelManager.main != null && LevelManager.main.IsGameOver())
+        {
+            return;
+        }
         if (UIManager.main.IsHoveringUI())
         {
             return;
@@ -42,23 +43,19 @@ public class Plot : MonoBehaviour
 
         if (towerObj != null && turret != null)
         {
-            Debug.Log("Opening upgrade UI for existing turret");
             turret.OpenUpgradeUI();
             return;
         }
 
-        Debug.Log("Attempting to add new tower");
 
         Tower towerToBuild = BuildManager.main.GetSelectedTower();
         if (towerToBuild == null)
         {
-            Debug.LogWarning("No selected tower");
             return;
         }
 
         if (towerToBuild.cost > LevelManager.main.currency)
         {
-            Debug.Log("Can't afford tower");
             return;
         }
 
@@ -71,10 +68,6 @@ public class Plot : MonoBehaviour
         {
             turret.SetParentPlot(this);
             Debug.Log("New tower placed successfully");
-        }
-        else
-        {
-            Debug.LogError("Failed to get Turret component from prefab");
         }
     }
 

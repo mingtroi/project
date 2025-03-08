@@ -10,7 +10,6 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private GameObject[] towerPrefabs;
     [SerializeField] private Tower[] towers;
 
-
     private int selectedTower = 0;
 
     private void Awake()
@@ -27,6 +26,7 @@ public class BuildManager : MonoBehaviour
     {
         selectedTower = _selectedTower;
     }
+
 
 
     // Start is called before the first frame update
