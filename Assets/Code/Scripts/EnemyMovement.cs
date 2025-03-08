@@ -16,10 +16,12 @@ public class EnemyMovement : MonoBehaviour
     private int pathIndex = 0;
     private Transform[] waypoints;
 
+    private float baseSpeed;
     public void SetPath(Transform[] selectedPath)
     {
         waypoints = selectedPath;
         pathIndex = 0;
+        baseSpeed = moveSpeed;
         target = waypoints[pathIndex];
     }
 
@@ -55,5 +57,13 @@ public class EnemyMovement : MonoBehaviour
             animator.Play("Enemy_Run1");
 
         }
+    }
+    public void UpdateSpeed(float newSpeed)
+    {
+        moveSpeed = newSpeed;
+    }
+    public void ResetSpeed()
+    {
+        moveSpeed = baseSpeed;
     }
 }
