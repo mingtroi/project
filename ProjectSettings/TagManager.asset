@@ -53,3 +53,6 @@ TagManager:
   - name: Bullet
     uniqueID: 2277505965
     locked: 0
+  - name: HpBar
+    uniqueID: 224797793
+    locked: 0
