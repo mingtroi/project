@@ -6,6 +6,8 @@ public class EnemyMovement : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer spriteRenderer; 
 
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 2f;
@@ -30,6 +32,7 @@ public class EnemyMovement : MonoBehaviour
             pathIndex++;
             if (pathIndex == waypoints.Length)
             {
+                LevelManager.main.TakeDamage(1); 
                 EnemySpawner.onEnemyDestroy.Invoke();
                 Destroy(gameObject);
                 return;
@@ -44,5 +47,13 @@ public class EnemyMovement : MonoBehaviour
 
         Vector2 direction = (target.position - transform.position).normalized;
         rb.velocity = direction * moveSpeed;
+
+        
+        if (direction.x != 0) 
+        {
+            spriteRenderer.flipX = direction.x > 0;
+            animator.Play("Enemy_Run1");
+
+        }
     }
 }

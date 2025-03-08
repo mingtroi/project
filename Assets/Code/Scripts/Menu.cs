@@ -6,10 +6,15 @@ using TMPro;
 public class Menu : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] TextMeshProUGUI currencyUI;
-    [SerializeField] Animator anim;
+    [SerializeField] private TextMeshProUGUI currencyUI;
+    [SerializeField] private Animator anim;
 
     private bool isMenuOpen = true;
+
+    private void Start()
+    {
+        UpdateCurrencyUI(); 
+    }
 
     public void ToggleMenu()
     {
@@ -17,15 +22,11 @@ public class Menu : MonoBehaviour
         anim.SetBool("MenuOpen", isMenuOpen);
     }
 
-    private void OnGUI()
+    public void UpdateCurrencyUI()
     {
-        currencyUI.text = LevelManager.main.currency.ToString();
+        if (currencyUI != null)
+        {
+            currencyUI.text = LevelManager.main.currency.ToString();
+        }
     }
-    public void SetSelected()
-    {
-
-    }
-
-
 }
-

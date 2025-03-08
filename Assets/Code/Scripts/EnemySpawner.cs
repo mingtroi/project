@@ -7,9 +7,9 @@ public class EnemySpawner : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject[] enemyPrefabs;
-    [SerializeField] private Transform startPoint1; // ?i?m spawn 1
-    [SerializeField] private Transform startPoint2; // ?i?m spawn 2 (ch? dùng cho màn có 2 ???ng)
-    [SerializeField] private bool useMultiplePaths = false; // N?u true, spawn t? 2 ???ng
+    [SerializeField] private Transform startPoint1;
+    [SerializeField] private Transform startPoint2; 
+    [SerializeField] private bool useMultiplePaths = false; 
 
     [Header("Attributes")]
     [SerializeField] private int baseEnemies = 8;
