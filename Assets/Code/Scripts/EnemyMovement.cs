@@ -54,9 +54,9 @@ public class EnemyMovement : MonoBehaviour
         if (direction.x != 0) 
         {
             spriteRenderer.flipX = direction.x > 0;
-            animator.Play("Enemy_Run1");
-
+            
         }
+
     }
     public void UpdateSpeed(float newSpeed)
     {

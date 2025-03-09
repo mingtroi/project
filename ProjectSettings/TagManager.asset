@@ -44,6 +44,18 @@ TagManager:
   - name: Ground
     uniqueID: 1773266879
     locked: 0
+  - name: Shadow
+    uniqueID: 300369599
+    locked: 0
+  - name: Rock
+    uniqueID: 905199129
+    locked: 0
+  - name: Tree
+    uniqueID: 3608609793
+    locked: 0
+  - name: Camp
+    uniqueID: 3465362119
+    locked: 0
   - name: Turrets
     uniqueID: 1165677371
     locked: 0
