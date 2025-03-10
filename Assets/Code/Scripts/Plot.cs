@@ -36,6 +36,10 @@ public class Plot : MonoBehaviour
         {
             return;
         }
+        if (LevelManager.main != null && LevelManager.main.IsGameWin())
+        {
+            return;
+        }
         if (UIManager.main.IsHoveringUI())
         {
             return;

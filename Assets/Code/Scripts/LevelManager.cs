@@ -15,8 +15,10 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI playerHealthText;
     [SerializeField] private GameObject gameOverUI;
+    [SerializeField] private GameObject gameWinUI;
     private Menu menu;
     public bool isGameOver = false;
+    public bool isGameWin = false;
 
     private void Awake()
     {
@@ -46,6 +48,14 @@ public class LevelManager : MonoBehaviour
         else
         {
             Debug.LogError("GameOver UI not assigned in the Inspector!");
+        }        
+        if (gameWinUI != null)
+        {
+            gameWinUI.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("GameWin UI not assigned in the Inspector!");
         }
     }
 
@@ -88,10 +98,16 @@ public class LevelManager : MonoBehaviour
         isGameOver = true;
         Time.timeScale = 0;
 
-        if (gameOverUI != null)
-        {
+
             gameOverUI.SetActive(true);
-        }
+    }    
+    public void GameWin()
+    {
+        isGameWin = true;
+        Time.timeScale = 0;
+
+        
+            gameWinUI.SetActive(true);
     }
 
     public void RestartGame()
@@ -104,6 +120,9 @@ public class LevelManager : MonoBehaviour
     public bool IsGameOver()
     {
         return isGameOver;
+    }    public bool IsGameWin()
+    {
+        return isGameWin;
     }
 
     private void UpdateHealthUI()

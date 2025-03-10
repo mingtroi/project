@@ -62,8 +62,18 @@ public class EnemySpawner : MonoBehaviour
     {
         isSpawning = false;
         timeSinceLastSpawn = 0;
-        currentWave++;
-        StartCoroutine(StartWave());
+        if (currentWave < 2) 
+        {
+            currentWave++;
+            StartCoroutine(StartWave());
+        }
+        else
+        {
+            if (LevelManager.main.playerHealth > 0)
+            {
+                LevelManager.main.GameWin();
+            }
+        }
     }
 
     private void SpawnEnemy()
