@@ -97,16 +97,12 @@ public class LevelManager : MonoBehaviour
     {
         isGameOver = true;
         Time.timeScale = 0;
-
-
             gameOverUI.SetActive(true);
     }    
     public void GameWin()
     {
         isGameWin = true;
         Time.timeScale = 0;
-
-        
             gameWinUI.SetActive(true);
     }
 
