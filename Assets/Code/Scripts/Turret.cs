@@ -27,6 +27,8 @@ public class Turret : MonoBehaviour
     [SerializeField] private float rotationSpeed = 200f;
     [SerializeField] private float bps = 1f;
     [SerializeField] private int baseUpgradeCost = 100;
+    [SerializeField] private float damage = 10f;
+
 
     private float bpsBase;
     private float targetingRangeBase;
@@ -124,6 +126,7 @@ public class Turret : MonoBehaviour
         GameObject bulletObj = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
         Bullet bulletScript = bulletObj.GetComponent<Bullet>();
         bulletScript.SetTarget(target);
+        bulletScript.SetDamage((int)damage);
     }
 
     public void OpenUpgradeUI()
@@ -163,14 +166,17 @@ public class Turret : MonoBehaviour
 
         bps = CalculateBPS();
         targetingRange = CalculateRange();
+        damage = CalculateDamage();  
+
         if (turretSpriteRenderer != null && turretSprites.Length >= level)
         {
             turretSpriteRenderer.sprite = turretSprites[level - 1];
         }
 
         CloseUpgradeUI();
-        Debug.Log($"Upgraded to level {level}. New BPS: {bps}, New Range: {targetingRange}");
+        Debug.Log($"Upgraded to level {level}. New BPS: {bps}, New Range: {targetingRange}, New Damage: {damage}");
     }
+
 
 
     private int CalculateCost()
@@ -186,6 +192,10 @@ public class Turret : MonoBehaviour
     private float CalculateRange()
     {
         return targetingRangeBase * Mathf.Pow(level, 0.4f);
+    }
+    private float CalculateDamage()
+    {
+        return damage * Mathf.Pow(level, 0.5f);  
     }
 
     public void Sell()
