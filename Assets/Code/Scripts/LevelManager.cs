@@ -27,7 +27,7 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        currency = 260;
+        currency = 100000000;
         menu = FindObjectOfType<Menu>();
 
         if (menu != null)

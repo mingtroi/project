@@ -1,9 +1,18 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 
 public class Turret : MonoBehaviour
 {
+    [Header("Visuals")]
+    [SerializeField] private SpriteRenderer turretSpriteRenderer; 
+    [SerializeField] private Sprite upgradedSprite;
+    [SerializeField] private Sprite[] turretSprites; // Mảng chứa 4 sprite, mỗi sprite ứng với 1 cấp
+
+    [Header("Upgrade Settings")]
+    [SerializeField] private int maxLevel = 4;   
+
+
     [Header("References")]
     [SerializeField] private Transform turretRotationPoint;
     [SerializeField] private LayerMask enemyMask;
@@ -136,19 +145,33 @@ public class Turret : MonoBehaviour
 
     public void Upgrade()
     {
+        if (level >= maxLevel)
+        {
+            Debug.Log("Turret đã ở cấp tối đa!");
+            return;
+        }
+
         int upgradeCost = CalculateCost();
-        if (upgradeCost > LevelManager.main.currency) return;
+        if (upgradeCost > LevelManager.main.currency)
+        {
+            Debug.Log("Không đủ tiền để nâng cấp!");
+            return;
+        }
 
         LevelManager.main.SpendCurrency(upgradeCost);
-
         level++;
 
         bps = CalculateBPS();
         targetingRange = CalculateRange();
+        if (turretSpriteRenderer != null && turretSprites.Length >= level)
+        {
+            turretSpriteRenderer.sprite = turretSprites[level - 1];
+        }
 
         CloseUpgradeUI();
         Debug.Log($"Upgraded to level {level}. New BPS: {bps}, New Range: {targetingRange}");
     }
+
 
     private int CalculateCost()
     {

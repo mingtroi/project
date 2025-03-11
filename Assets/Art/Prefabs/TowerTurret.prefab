@@ -1068,6 +1068,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0bdec85fcffed49b5b57983b2551bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turretSpriteRenderer: {fileID: 1516103038313602099}
+  upgradedSprite: {fileID: -381877732, guid: 89dc428ce45d5f444bd4382c06be4946, type: 3}
+  turretSprites:
+  - {fileID: -1249506736, guid: 89dc428ce45d5f444bd4382c06be4946, type: 3}
+  - {fileID: -994286852, guid: 89dc428ce45d5f444bd4382c06be4946, type: 3}
+  - {fileID: 2100979477, guid: f538bca9ed4cf40429e91042f28aebf8, type: 3}
+  maxLevel: 4
   turretRotationPoint: {fileID: 3701194944517238547}
   enemyMask:
     serializedVersion: 2
