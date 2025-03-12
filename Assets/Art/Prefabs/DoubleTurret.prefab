@@ -473,6 +473,37 @@ Transform:
   m_GameObject: {fileID: 2740528442067385749}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3701194944517238547}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3158911599553933146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4151913307175947298}
+  m_Layer: 0
+  m_Name: FiringPoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4151913307175947298
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3158911599553933146}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -811,6 +842,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5609288168590575043}
+  - {fileID: 4151913307175947298}
   m_Father: {fileID: 3121090894163643318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6617155575179545334
@@ -1081,6 +1113,7 @@ MonoBehaviour:
     m_Bits: 64
   bulletPrefab: {fileID: 3964214449386978751, guid: dd43030d0698e4342ab8095dd7558863, type: 3}
   firingPoint: {fileID: 5609288168590575043}
+  firingPoint2: {fileID: 4151913307175947298}
   upgradeUI: {fileID: 412972476872542967}
   upgradeButton: {fileID: 2146368636833062493}
   sellButton: {fileID: 1855453517834385980}

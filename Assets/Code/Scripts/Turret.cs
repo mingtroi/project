@@ -18,6 +18,7 @@ public class Turret : MonoBehaviour
     [SerializeField] private LayerMask enemyMask;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firingPoint;
+    [SerializeField] private Transform firingPoint2;
     [SerializeField] private GameObject upgradeUI;
     [SerializeField] private Button upgradeButton;
     [SerializeField] private Button sellButton;
@@ -123,11 +124,31 @@ public class Turret : MonoBehaviour
 
     private void Shoot()
     {
-        GameObject bulletObj = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
-        Bullet bulletScript = bulletObj.GetComponent<Bullet>();
-        bulletScript.SetTarget(target);
-        bulletScript.SetDamage((int)damage);
+        // check double tower
+        if (firingPoint2 != null)
+        {
+            // Double Turret
+            GameObject bulletObj1 = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
+            Bullet bulletScript1 = bulletObj1.GetComponent<Bullet>();
+            bulletScript1.SetTarget(target);
+            bulletScript1.SetDamage((int)damage);
+
+            GameObject bulletObj2 = Instantiate(bulletPrefab, firingPoint2.position, Quaternion.identity);
+            Bullet bulletScript2 = bulletObj2.GetComponent<Bullet>();
+            bulletScript2.SetTarget(target);
+            bulletScript2.SetDamage((int)damage);
+        }
+        else
+        {
+            // 1 bullet
+            GameObject bulletObj1 = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
+            Bullet bulletScript1 = bulletObj1.GetComponent<Bullet>();
+            bulletScript1.SetTarget(target);
+            bulletScript1.SetDamage((int)damage);
+        }
     }
+
+
 
     public void OpenUpgradeUI()
     {
