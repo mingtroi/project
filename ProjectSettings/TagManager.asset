@@ -44,6 +44,12 @@ TagManager:
   - name: Ground
     uniqueID: 1773266879
     locked: 0
+  - name: Plot
+    uniqueID: 2296678751
+    locked: 0
+  - name: Grass
+    uniqueID: 2572986659
+    locked: 0
   - name: Shadow
     uniqueID: 300369599
     locked: 0

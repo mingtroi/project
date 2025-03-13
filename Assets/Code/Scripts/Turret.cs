@@ -18,6 +18,7 @@ public class Turret : MonoBehaviour
     [SerializeField] private LayerMask enemyMask;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firingPoint;
+    [SerializeField] private Transform firingPoint2;
     [SerializeField] private GameObject upgradeUI;
     [SerializeField] private Button upgradeButton;
     [SerializeField] private Button sellButton;
@@ -27,6 +28,8 @@ public class Turret : MonoBehaviour
     [SerializeField] private float rotationSpeed = 200f;
     [SerializeField] private float bps = 1f;
     [SerializeField] private int baseUpgradeCost = 100;
+    [SerializeField] private float damage = 10f;
+
 
     private float bpsBase;
     private float targetingRangeBase;
@@ -121,10 +124,31 @@ public class Turret : MonoBehaviour
 
     private void Shoot()
     {
-        GameObject bulletObj = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
-        Bullet bulletScript = bulletObj.GetComponent<Bullet>();
-        bulletScript.SetTarget(target);
+        // check double tower
+        if (firingPoint2 != null)
+        {
+            // Double Turret
+            GameObject bulletObj1 = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
+            Bullet bulletScript1 = bulletObj1.GetComponent<Bullet>();
+            bulletScript1.SetTarget(target);
+            bulletScript1.SetDamage((int)damage);
+
+            GameObject bulletObj2 = Instantiate(bulletPrefab, firingPoint2.position, Quaternion.identity);
+            Bullet bulletScript2 = bulletObj2.GetComponent<Bullet>();
+            bulletScript2.SetTarget(target);
+            bulletScript2.SetDamage((int)damage);
+        }
+        else
+        {
+            // 1 bullet
+            GameObject bulletObj1 = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
+            Bullet bulletScript1 = bulletObj1.GetComponent<Bullet>();
+            bulletScript1.SetTarget(target);
+            bulletScript1.SetDamage((int)damage);
+        }
     }
+
+
 
     public void OpenUpgradeUI()
     {
@@ -163,14 +187,17 @@ public class Turret : MonoBehaviour
 
         bps = CalculateBPS();
         targetingRange = CalculateRange();
+        damage = CalculateDamage();  
+
         if (turretSpriteRenderer != null && turretSprites.Length >= level)
         {
             turretSpriteRenderer.sprite = turretSprites[level - 1];
         }
 
         CloseUpgradeUI();
-        Debug.Log($"Upgraded to level {level}. New BPS: {bps}, New Range: {targetingRange}");
+        Debug.Log($"Upgraded to level {level}. New BPS: {bps}, New Range: {targetingRange}, New Damage: {damage}");
     }
+
 
 
     private int CalculateCost()
@@ -186,6 +213,10 @@ public class Turret : MonoBehaviour
     private float CalculateRange()
     {
         return targetingRangeBase * Mathf.Pow(level, 0.4f);
+    }
+    private float CalculateDamage()
+    {
+        return damage * Mathf.Pow(level, 0.5f);  
     }
 
     public void Sell()

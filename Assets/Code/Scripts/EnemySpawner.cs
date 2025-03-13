@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,22 +6,18 @@ using UnityEngine.Events;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject[] enemyPrefabs;
     [SerializeField] private Transform startPoint1;
-    [SerializeField] private Transform startPoint2; 
-    [SerializeField] private bool useMultiplePaths = false; 
+    [SerializeField] private Transform startPoint2;
+    [SerializeField] private bool useMultiplePaths = false;
 
-    [Header("Attributes")]
-    [SerializeField] private int baseEnemies = 8;
-    [SerializeField] private float enemiesPerSecond = 0.5f;
+    [Header("Wave Configurations")]
+    [SerializeField] private List<WaveConfig> waves; // Danh sách các wave
     [SerializeField] private float timeBetweenWaves = 5f;
-    [SerializeField] private float difficultyScalingFactor = 0.75f;
-    [SerializeField] private float enemiesPerSecondCap = 15f;
 
     [Header("Event")]
     public static UnityEvent onEnemyDestroy = new UnityEvent();
 
-    private int currentWave = 1;
+    private int currentWaveIndex = 0;
     private float timeSinceLastSpawn;
     private int enemiesAlive;
     private int enemiesLeftToSpawned;
@@ -62,9 +58,10 @@ public class EnemySpawner : MonoBehaviour
     {
         isSpawning = false;
         timeSinceLastSpawn = 0;
-        if (currentWave < 2) 
+
+        if (currentWaveIndex < waves.Count - 1) // Chưa hết wave
         {
-            currentWave++;
+            currentWaveIndex++;
             StartCoroutine(StartWave());
         }
         else
@@ -78,10 +75,12 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        int index = Random.Range(0, enemyPrefabs.Length);
-        GameObject prefabToSpawn = enemyPrefabs[index]; 
-        Transform spawnPoint = startPoint1; 
-        Transform[] waypoints = Waypoints.path1; 
+        WaveConfig currentWave = waves[currentWaveIndex];
+        int index = Random.Range(0, currentWave.enemyPrefabs.Count);
+        GameObject prefabToSpawn = currentWave.enemyPrefabs[index];
+
+        Transform spawnPoint = startPoint1;
+        Transform[] waypoints = Waypoints.path1;
 
         if (useMultiplePaths && startPoint2 != null)
         {
@@ -99,7 +98,6 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-
     private void EnemyDestroy()
     {
         enemiesAlive--;
@@ -108,18 +106,10 @@ public class EnemySpawner : MonoBehaviour
     private IEnumerator StartWave()
     {
         yield return new WaitForSeconds(timeBetweenWaves);
-        isSpawning = true;
-        enemiesLeftToSpawned = EnemiesPerWave();
-        eps = EnemiesPerSecond();
-    }
 
-    private int EnemiesPerWave()
-    {
-        return Mathf.RoundToInt(baseEnemies * Mathf.Pow(currentWave, difficultyScalingFactor));
-    }    
-    private float EnemiesPerSecond()
-    {
-        return Mathf.Clamp(enemiesPerSecond * Mathf.Pow
-            (currentWave, difficultyScalingFactor),0f,enemiesPerSecondCap);
+        WaveConfig currentWave = waves[currentWaveIndex];
+        isSpawning = true;
+        enemiesLeftToSpawned = currentWave.enemyCount;
+        eps = currentWave.enemiesPerSecond;
     }
 }
