@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -16,6 +16,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerHealthText;
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject gameWinUI;
+    [SerializeField] private GameObject mainMenuUI;
+
     private Menu menu;
     public bool isGameOver = false;
     public bool isGameWin = false;
@@ -27,6 +29,9 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 0; // Dừng game khi vào
+        mainMenuUI.SetActive(true); // Hiện menu
+
         currency = 100000000;
         menu = FindObjectOfType<Menu>();
 
@@ -57,6 +62,11 @@ public class LevelManager : MonoBehaviour
         {
             Debug.LogError("GameWin UI not assigned in the Inspector!");
         }
+    }
+    public void StartGame()
+    {
+        Time.timeScale = 1; // Chạy game
+        mainMenuUI.SetActive(false); // Ẩn menu
     }
 
     public void IncreaseCurrency(int amount)
@@ -132,4 +142,5 @@ public class LevelManager : MonoBehaviour
             Debug.LogError("playerHealthText is not assigned!");
         }
     }
+
 }

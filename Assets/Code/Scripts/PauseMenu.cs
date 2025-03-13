@@ -44,7 +44,33 @@ public class PauseMenu : MonoBehaviour
 
     public void Home()
     {
-        Time.timeScale = 1; // Đảm bảo về menu chính game chạy bình thường
-        SceneManager.LoadScene("Main Menu");
+        Time.timeScale = 1; // Đảm bảo thời gian chạy bình thường
+
+        if (SceneExists("Main Menu"))
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
+        else
+        {
+            Debug.LogError("Scene 'Main Menu' chưa được thêm vào Build Settings!");
+        }
     }
+
+    private bool SceneExists(string sceneName)
+    {
+        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        {
+            string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+            string sceneFileName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+            if (sceneFileName == sceneName)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+   
+
+
+
 }
