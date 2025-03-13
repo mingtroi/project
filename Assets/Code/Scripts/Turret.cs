@@ -26,7 +26,7 @@ public class Turret : MonoBehaviour
     [Header("Attribute")]
     [SerializeField] private float targetingRange = 3f;
     [SerializeField] private float rotationSpeed = 200f;
-    [SerializeField] private float bps = 0.8f;
+    [SerializeField] private float bps = 0.5f;
     [SerializeField] private int baseUpgradeCost = 100;
     [SerializeField] private float damage = 5f;
 
