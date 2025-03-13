@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Plot : MonoBehaviour
 {
@@ -7,7 +7,7 @@ public class Plot : MonoBehaviour
     [SerializeField] private Color hoverColor;
 
     private GameObject towerObj;
-    public Turret turret;
+    private MonoBehaviour turret; // Chấp nhận cả Turret và TurretSlomo
     private Color startColor;
     private int defaultOrder;
     private int hoverOrder = 6;
@@ -32,11 +32,7 @@ public class Plot : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (LevelManager.main != null && LevelManager.main.IsGameOver())
-        {
-            return;
-        }
-        if (LevelManager.main != null && LevelManager.main.IsGameWin())
+        if (LevelManager.main != null && (LevelManager.main.IsGameOver() || LevelManager.main.IsGameWin()))
         {
             return;
         }
@@ -45,33 +41,42 @@ public class Plot : MonoBehaviour
             return;
         }
 
-        if (towerObj != null && turret != null)
+        if (towerObj != null)
         {
-            turret.OpenUpgradeUI();
+            if (turret != null) // ✅ Kiểm tra trước khi gọi
+            {
+                (turret as Turret)?.OpenUpgradeUI();
+                (turret as TurretSlomo)?.OpenUpgradeUI();
+            }
             return;
         }
-
 
         Tower towerToBuild = BuildManager.main.GetSelectedTower();
-        if (towerToBuild == null)
-        {
-            return;
-        }
-
-        if (towerToBuild.cost > LevelManager.main.currency)
+        if (towerToBuild == null || towerToBuild.cost > LevelManager.main.currency)
         {
             return;
         }
 
         LevelManager.main.SpendCurrency(towerToBuild.cost);
 
+        // ✅ Kiểm tra lại ngay sau khi đặt
+        if (towerObj != null)
+        {
+            Debug.LogWarning("Tower already exists here!");
+            return;
+        }
+
         towerObj = Instantiate(towerToBuild.prefab, transform.position, Quaternion.identity);
-        turret = towerObj.GetComponent<Turret>();
+        turret = towerObj.GetComponent<Turret>() ?? (MonoBehaviour)towerObj.GetComponent<TurretSlomo>();
 
         if (turret != null)
         {
-            turret.SetParentPlot(this);
+            (turret as Turret)?.SetParentPlot(this);
             Debug.Log("New tower placed successfully");
+        }
+        else
+        {
+            Debug.LogError("Turret component is missing on the placed tower!");
         }
     }
 
@@ -80,9 +85,6 @@ public class Plot : MonoBehaviour
         Debug.Log("ClearTurret() called - clearing plot for new tower");
         towerObj = null;
         turret = null;
-
-        // Ensure UI manager isn't in hovering state
         UIManager.main.SetHoveringState(false);
     }
-
 }

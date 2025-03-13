@@ -153,7 +153,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5697830295036168946
 RectTransform:
   m_ObjectHideFlags: 0
@@ -360,6 +360,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5697830295036168946}
+  - {fileID: 3810778290949748470}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1237836852432424084
@@ -403,12 +404,12 @@ SpriteRenderer:
   m_SortingLayerID: 1165677371
   m_SortingLayer: 8
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1294115446, guid: dda0edd316357b54eb8a290aeaccfd2b, type: 3}
+  m_Sprite: {fileID: -1137449832, guid: 344db3df065469744952759fcb343cef, type: 3}
   m_Color: {r: 0.60096115, g: 0.89735734, b: 0.9622642, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.50196075, y: 0.703125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -426,7 +427,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc02745a679dec47a0670f81614f84b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretRotationPoint: {fileID: 0}
+  turretSpriteRenderer: {fileID: 0}
+  upgradedSprite: {fileID: 0}
+  turretSprites: []
+  maxLevel: 5
+  turretRotationPoint: {fileID: 3810778290949748470}
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 64
+  bulletPrefab: {fileID: 0}
+  firingPoint: {fileID: 0}
+  firingPoint2: {fileID: 0}
+  upgradeUI: {fileID: 2497095672899456268}
+  upgradeButton: {fileID: 3934133773107298639}
+  sellButton: {fileID: 7362319194931893247}
+  targetingRange: 2
+  rotationSpeed: 200
+  bps: 1
+  baseUpgradeCost: 100
+  damage: 10
+  turretRotationPoint: {fileID: 6595187557740964673}
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
@@ -434,6 +454,7 @@ MonoBehaviour:
   sellButton: {fileID: 7362319194931893247}
   upgradeUI: {fileID: 2497095672899456268}
   targetingRange: 2
+  rotationSpeed: 200
   aps: 0.25
   freezeTime: 1
   level: 1
@@ -449,7 +470,7 @@ Animator:
   m_GameObject: {fileID: 3095587979382981738}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 217ee8624545feb43bf860592d8dad09, type: 2}
+  m_Controller: {fileID: 9100000, guid: b9df9d97e36f5d645892e6eae36f70ec, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -460,6 +481,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &4070509690821852586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3810778290949748470}
+  m_Layer: 0
+  m_Name: Rotation Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3810778290949748470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4070509690821852586}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6595187557740964673}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4206494753212178588
 GameObject:
   m_ObjectHideFlags: 0
