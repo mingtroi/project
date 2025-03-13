@@ -99,7 +99,13 @@ public class TurretSlomo : MonoBehaviour
         targetingRange = 3f + level * 0.5f;
         aps = 0.25f + level * 0.05f;
         freezeTime = 1f + level * 0.2f;
+
+        if (level >= maxLevel)
+        {
+            upgradeButton.gameObject.SetActive(false);
+        }
     }
+
 
     public void Sell()
     {

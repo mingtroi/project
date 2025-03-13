@@ -187,16 +187,33 @@ public class Turret : MonoBehaviour
 
         bps = CalculateBPS();
         targetingRange = CalculateRange();
-        damage = CalculateDamage();  
+        damage = CalculateDamage();
 
         if (turretSpriteRenderer != null && turretSprites.Length >= level)
         {
             turretSpriteRenderer.sprite = turretSprites[level - 1];
+
+            if (level == 2)
+            {
+                Vector3 originalPosition = turretSpriteRenderer.transform.position;
+                turretSpriteRenderer.transform.position = new Vector3(originalPosition.x, originalPosition.y + 0.5f, originalPosition.z);
+            }
+        }
+
+
+        // Ẩn nút upgrade nếu đạt cấp tối đa
+        if (level >= maxLevel)
+        {
+            upgradeButton.gameObject.SetActive(false);
         }
 
         CloseUpgradeUI();
         Debug.Log($"Upgraded to level {level}. New BPS: {bps}, New Range: {targetingRange}, New Damage: {damage}");
     }
+
+
+
+
 
 
 

@@ -100,10 +100,10 @@ TextureImporter:
       name: 5_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 5
         y: 0
-        width: 70
-        height: 130
+        width: 62
+        height: 95
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,10 +121,10 @@ TextureImporter:
       name: 5_1
       rect:
         serializedVersion: 2
-        x: 70
+        x: 75
         y: 0
-        width: 70
-        height: 130
+        width: 62
+        height: 91
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,10 +142,10 @@ TextureImporter:
       name: 5_2
       rect:
         serializedVersion: 2
-        x: 140
+        x: 145
         y: 0
-        width: 70
-        height: 130
+        width: 62
+        height: 94
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,10 +163,10 @@ TextureImporter:
       name: 5_3
       rect:
         serializedVersion: 2
-        x: 210
+        x: 215
         y: 0
-        width: 70
-        height: 130
+        width: 62
+        height: 93
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

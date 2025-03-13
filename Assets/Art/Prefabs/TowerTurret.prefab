@@ -98,7 +98,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -471,7 +471,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5530406807631221320}
   m_Father: {fileID: 3121090894163643318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1516103038313602099
@@ -831,7 +832,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3121090894163643318}
+  m_Father: {fileID: 2513939684914691101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1158912198218579105
 SpriteRenderer:
@@ -983,7 +984,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1053,7 +1054,6 @@ Transform:
   - {fileID: 3701194944517238547}
   - {fileID: 5529169791188270072}
   - {fileID: 2513939684914691101}
-  - {fileID: 5530406807631221320}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5122386939861189332
@@ -1081,6 +1081,7 @@ MonoBehaviour:
     m_Bits: 64
   bulletPrefab: {fileID: 3964214449386978751, guid: dd43030d0698e4342ab8095dd7558863, type: 3}
   firingPoint: {fileID: 5609288168590575043}
+  firingPoint2: {fileID: 0}
   upgradeUI: {fileID: 1577877772960032977}
   upgradeButton: {fileID: 7831467247320703898}
   sellButton: {fileID: 2892737518405758411}
