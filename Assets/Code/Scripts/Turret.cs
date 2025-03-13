@@ -26,9 +26,9 @@ public class Turret : MonoBehaviour
     [Header("Attribute")]
     [SerializeField] private float targetingRange = 3f;
     [SerializeField] private float rotationSpeed = 200f;
-    [SerializeField] private float bps = 1f;
+    [SerializeField] private float bps = 0.8f;
     [SerializeField] private int baseUpgradeCost = 100;
-    [SerializeField] private float damage = 10f;
+    [SerializeField] private float damage = 5f;
 
 
     private float bpsBase;
@@ -131,12 +131,12 @@ public class Turret : MonoBehaviour
             GameObject bulletObj1 = Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
             Bullet bulletScript1 = bulletObj1.GetComponent<Bullet>();
             bulletScript1.SetTarget(target);
-            bulletScript1.SetDamage((int)damage);
+            bulletScript1.SetDamage((int)(damage * 0.75f));
 
             GameObject bulletObj2 = Instantiate(bulletPrefab, firingPoint2.position, Quaternion.identity);
             Bullet bulletScript2 = bulletObj2.GetComponent<Bullet>();
             bulletScript2.SetTarget(target);
-            bulletScript2.SetDamage((int)damage);
+            bulletScript2.SetDamage((int)(damage * 0.75f));
         }
         else
         {
@@ -233,7 +233,7 @@ public class Turret : MonoBehaviour
     }
     private float CalculateDamage()
     {
-        return damage * Mathf.Pow(level, 0.5f);  
+        return damage * Mathf.Pow(level, 0.3f);  
     }
 
     public void Sell()

@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     public Transform startPoint;
     public Transform startPoint1;
 
-    public int currency;
+    public int currency = 400;
     public int playerHealth = 10;
 
     [SerializeField] private TextMeshProUGUI playerHealthText;
@@ -32,7 +32,7 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 0; // Dừng game khi vào
         mainMenuUI.SetActive(true); // Hiện menu
 
-        currency = 100000000;
+       
         menu = FindObjectOfType<Menu>();
 
         if (menu != null)

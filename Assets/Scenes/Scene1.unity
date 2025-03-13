@@ -1875,7 +1875,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -0.29284668, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5182,6 +5182,7 @@ GameObject:
   - component: {fileID: 744018697}
   - component: {fileID: 744018696}
   - component: {fileID: 744018695}
+  - component: {fileID: 744018698}
   m_Layer: 5
   m_Name: Resume
   m_TagString: Untagged
@@ -5303,6 +5304,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744018693}
   m_CullTransparentMesh: 1
+--- !u!114 &744018698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 744018693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &749232629
 GameObject:
   m_ObjectHideFlags: 0
@@ -7342,8 +7356,8 @@ MonoBehaviour:
   - {fileID: 1015208901}
   startPoint: {fileID: 1549119741}
   startPoint1: {fileID: 590858664}
-  currency: 10000000
-  playerHealth: 90000
+  currency: 500
+  playerHealth: 20
   playerHealthText: {fileID: 1664655222}
   gameOverUI: {fileID: 1633309765}
   gameWinUI: {fileID: 1117907232}
@@ -7386,17 +7400,22 @@ MonoBehaviour:
     - {fileID: 6705790847009184718, guid: 724d79d8ebcfb7d4abcbf130f2e9ddea, type: 3}
     enemyCount: 30
     enemiesPerSecond: 2
-  - waveName: Wolf
+  - waveName: Boss
     enemyPrefabs:
-    - {fileID: 6705790847009184718, guid: 8c2b4a475ea8eef429ea7c316d73eb3d, type: 3}
-    enemyCount: 30
-    enemiesPerSecond: 2
+    - {fileID: 6705790847009184718, guid: dc0dd0ca0de630747a048982bafea6e1, type: 3}
+    enemyCount: 1
+    enemiesPerSecond: 0
   - waveName: Slime
     enemyPrefabs:
     - {fileID: 6705790847009184718, guid: 709bbfe0d07a10540aa162ee85e3e907, type: 3}
     enemyCount: 40
     enemiesPerSecond: 2
-  timeBetweenWaves: 5
+  - waveName: Wolf
+    enemyPrefabs:
+    - {fileID: 6705790847009184718, guid: 8c2b4a475ea8eef429ea7c316d73eb3d, type: 3}
+    enemyCount: 30
+    enemiesPerSecond: 2
+  timeBetweenWaves: 4
 --- !u!114 &1271866552
 MonoBehaviour:
   m_ObjectHideFlags: 0
