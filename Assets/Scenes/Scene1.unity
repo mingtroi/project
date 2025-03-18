@@ -7356,7 +7356,7 @@ MonoBehaviour:
   - {fileID: 1015208901}
   startPoint: {fileID: 1549119741}
   startPoint1: {fileID: 590858664}
-  currency: 500
+  currency: 100000
   playerHealth: 20
   playerHealthText: {fileID: 1664655222}
   gameOverUI: {fileID: 1633309765}
@@ -7364,6 +7364,7 @@ MonoBehaviour:
   mainMenuUI: {fileID: 2007196670}
   isGameOver: 0
   isGameWin: 0
+  enemyKillCount: 0
 --- !u!4 &1271866550
 Transform:
   m_ObjectHideFlags: 0
@@ -14779,6 +14780,10 @@ PrefabInstance:
     - target: {fileID: 6469591165130537168, guid: ae237df4855d9e040bbeafdcb4d630fd, type: 3}
       propertyPath: m_Name
       value: Bullet2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6469591165130537168, guid: ae237df4855d9e040bbeafdcb4d630fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

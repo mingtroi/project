@@ -101,6 +101,8 @@ public class EnemySpawner : MonoBehaviour
     private void EnemyDestroy()
     {
         enemiesAlive--;
+        Debug.Log("Enemy destroyed! Enemies alive: " + enemiesAlive);
+        LevelManager.main.IncreaseKillCount();
     }
 
     private IEnumerator StartWave()

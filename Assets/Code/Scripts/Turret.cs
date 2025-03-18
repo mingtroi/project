@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
+using TMPro;
+using System.Collections;
 
 public class Turret : MonoBehaviour
 {
@@ -10,7 +12,10 @@ public class Turret : MonoBehaviour
     [SerializeField] private Sprite[] turretSprites; // Mảng chứa 4 sprite, mỗi sprite ứng với 1 cấp
 
     [Header("Upgrade Settings")]
-    [SerializeField] private int maxLevel = 4;   
+    [SerializeField] private int maxLevel = 4;
+    [SerializeField] private TextMeshProUGUI floatingCurrencyText; // Tham chiếu đến Text UI
+
+
 
 
     [Header("References")]
@@ -184,6 +189,8 @@ public class Turret : MonoBehaviour
 
         LevelManager.main.SpendCurrency(upgradeCost);
         level++;
+        ShowFloatingText("-" + upgradeCost, Color.yellow);
+
 
         bps = CalculateBPS();
         targetingRange = CalculateRange();
@@ -209,10 +216,35 @@ public class Turret : MonoBehaviour
 
         CloseUpgradeUI();
         Debug.Log($"Upgraded to level {level}. New BPS: {bps}, New Range: {targetingRange}, New Damage: {damage}");
+
+        
+    }
+    void ShowFloatingText(string text, Color color)
+    {
+        if (floatingCurrencyText)
+        {
+            floatingCurrencyText.text = text;
+            floatingCurrencyText.color = color;
+            floatingCurrencyText.alpha = 1;
+
+            StartCoroutine(FadeOutText());
+        }
     }
 
+    IEnumerator FadeOutText()
+    {
+        float duration = 2f; 
+        float elapsedTime = 0f;
 
+        while (elapsedTime < duration)
+        {
+            floatingCurrencyText.alpha = Mathf.Lerp(1, 0, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
 
+        floatingCurrencyText.alpha = 0; 
+    }
 
 
 
@@ -240,6 +272,8 @@ public class Turret : MonoBehaviour
     {
         int sellValue = Mathf.RoundToInt(CalculateCost() * 0.5f);
         LevelManager.main.IncreaseCurrency(sellValue);
+
+        ShowFloatingText("+" + sellValue, Color.green);
 
         if (parentPlot != null)
         {

@@ -20,7 +20,8 @@ public class UpgradeUIHandler : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         mouse_over = true;
         UIManager.main.SetHoveringState(true);
-    }public void OnPointerExit(PointerEventData eventData)
+    }
+    public void OnPointerExit(PointerEventData eventData)
     {
         mouse_over = false;
         UIManager.main.SetHoveringState(false);

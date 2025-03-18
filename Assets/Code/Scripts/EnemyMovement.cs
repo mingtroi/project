@@ -34,7 +34,8 @@ public class EnemyMovement : MonoBehaviour
             pathIndex++;
             if (pathIndex == waypoints.Length)
             {
-                LevelManager.main.TakeDamage(1); 
+                LevelManager.main.TakeDamage(1);
+                LevelManager.main.IncreaseKillCount();
                 EnemySpawner.onEnemyDestroy.Invoke();
                 Destroy(gameObject);
                 return;

@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
     public Transform startPoint1;
 
     public int currency = 400;
-    public int playerHealth = 10;
+    public int playerHealth = 20;
 
     [SerializeField] private TextMeshProUGUI playerHealthText;
     [SerializeField] private GameObject gameOverUI;
@@ -21,11 +21,28 @@ public class LevelManager : MonoBehaviour
     private Menu menu;
     public bool isGameOver = false;
     public bool isGameWin = false;
-
+    public int enemyKillCount = 0;
     private void Awake()
     {
         main = this;
     }
+    public void IncreaseKillCount()
+    {
+        enemyKillCount++;
+        Debug.Log("Enemy killed! Total kills: " + enemyKillCount);
+
+        // Only increase health when kills reach exactly 10, 20, 30, etc.
+        if (enemyKillCount > 0 && enemyKillCount % 10 == 0)
+        {
+            Debug.Log("Đủ điều kiện tăng máu!");
+            playerHealth++;
+            Debug.Log("Máu trước khi cập nhật UI: " + playerHealth);
+            UpdateHealthUI();
+            Debug.Log("Tăng 1 máu! Máu hiện tại: " + playerHealth);
+        }
+    }
+
+
 
     void Start()
     {
